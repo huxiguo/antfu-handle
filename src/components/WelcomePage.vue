@@ -1,12 +1,32 @@
 <script setup lang="ts">
-import { isDark, showHelp, showPrivacyNotes, showVariants, useMask } from '~/state'
+import { isDark, key, showHelp, showPrivacyNotes, showVariants, useMask } from '~/state'
 import { initialized, inputMode } from '~/storage'
 import { t } from '~/i18n'
+import { createRoundup } from '~/service/roundup'
+
+const inputKey = ref(key)
+const infoMsg = ref('')
 
 function start() {
   showHelp.value = false
   useMask.value = false
   initialized.value = true
+}
+
+async function startEndless() {
+  if (!inputKey.value) {
+    infoMsg.value = t('roundup-nokey')
+    return
+  }
+  const { status } = await createRoundup({ key: inputKey.value || '' })
+  if (status !== 200 && status !== 409) {
+    infoMsg.value = t('roundup-error')
+  }
+  else {
+    const url = new URL(window.location.href)
+    url.searchParams.set('key', inputKey.value)
+    window.location.href = url.href
+  }
 }
 
 function variantButton() {
@@ -15,6 +35,11 @@ function variantButton() {
 
 function privacyButton() {
   showPrivacyNotes.value = true
+}
+
+function handleInput(e: Event) {
+  const el = (e.target! as HTMLInputElement)
+  inputKey.value = el.value
 }
 
 const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.value]))
@@ -32,10 +57,13 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
     </div>
 
     <div text-3xl font-serif tracking-widest>
-      {{ t('name') }}
+      {{ t('name') }} <b text-primary>{{ t('endless-name') }}</b>
     </div>
     <div mt--1 op50 text-sm>
       {{ t('description') }}
+    </div>
+    <div mt--1 op30 text-sm>
+      {{ t('description-endless') }}
     </div>
 
     <div h-1px w-10 border="b base" m4 />
@@ -46,6 +74,7 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
 
     <p>{{ t('intro-1') }} <b text-ok>{{ t('intro-2') }}</b>。</p>
     <p>{{ t('intro-3') }}</p>
+    <p>{{ t('intro-endless') }} <b text-ok>{{ t('continue') }}</b>。</p>
     <div h-1px w-10 border="b base" m4 />
 
     <WordBlocks my2 :word="t('example-1')" :revealed="true" answer=" 门  " />
@@ -65,8 +94,23 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
     <p>{{ t('intro-20') }}</p>
 
     <div h-1px w-10 border="b base" m4 />
-
-    <button btn tracking-widest p="x4 y2" @click="start()">
+    <input
+      ref="el"
+      v-model="inputKey"
+      type="text"
+      autocomplete="false"
+      outline-none
+      :placeholder="t('input-placeholder-key')"
+      w-86 p3
+      border="2 base"
+      text="center"
+      bg="transparent"
+      @input="handleInput"
+    >
+    <div v-if="infoMsg">
+      {{ t(infoMsg as any) }}
+    </div>
+    <button btn tracking-widest p="x4 y2" :disabled="!inputKey" @click="startEndless()">
       {{ t('start') }}
     </button>
     <div op50>

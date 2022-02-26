@@ -32,3 +32,11 @@ export interface TriesMeta {
   hintLevel?: number
   sent?: boolean
 }
+
+export interface Roundup {
+  id?: number
+  roundup?: number
+  key?: string
+  created_at?: string
+  updated_at?: string
+}

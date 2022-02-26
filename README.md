@@ -1,6 +1,6 @@
 ![](./public/og.png)
 
-# 汉兜 Handle
+# 汉兜 Handle - (无限版)
 
 A Chinese Hanzi variation of [Wordle](https://www.powerlanguage.co.uk/wordle/). 汉字 Wordle.
 

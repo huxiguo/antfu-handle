@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getReport } from '~/analytics'
+import { getReport } from '~/service/analytics'
 
 const data = asyncComputed(() => getReport())
 </script>

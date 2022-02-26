@@ -1,7 +1,8 @@
-import { accpetCollecting, initialized, markEnd, markStart, meta, pauseTimer } from './storage'
-import { answer, dayNo, daySince, isFinished, isPassed, showHelp } from './state'
+import { accpetCollecting, markEnd, markStart, meta, pauseTimer, roundupData } from './storage'
+import { answer, dayNo, daySince, isFinished, isPassed, key, showHelp } from './state'
 import { t } from './i18n'
-import { sendAnalytics } from './analytics'
+import { sendAnalytics } from './service/analytics'
+import { getRoundup } from './service/roundup'
 
 useTitle(computed(() => `${t('name')} - ${t('description')}`))
 
@@ -10,9 +11,6 @@ watchEffect(() => {
   // eslint-disable-next-line no-console
   console.log(`D${dayNo.value}`, { are: { you: { sure: { to: { cheat: { '?': answer.value.word } } } } } })
 }, { flush: 'post' })
-
-if (!initialized.value)
-  showHelp.value = true
 
 watchEffect(() => {
   if (isPassed.value)
@@ -23,6 +21,11 @@ watch(daySince, (n, o) => {
   // on day changed
   if (o === dayNo.value && isFinished.value)
     dayNo.value = n
+})
+
+watchEffect(() => {
+  if (!key) showHelp.value = true
+  else getRoundup({ key }).then(({ data }) => { roundupData.value = data }).catch((e) => { console.error(e) })
 })
 
 watch([isFinished, meta], () => {

@@ -1,5 +1,6 @@
 import seedrandom from 'seedrandom'
 import DATA from '../data/idioms.json'
+import type { Roundup } from '../logic'
 import { getHint } from '../logic'
 import { answers } from './list'
 import { RANDOM_SEED } from '~/logic'
@@ -20,4 +21,11 @@ export function getAnswerOfDay(day: number) {
     word,
     hint,
   }
+}
+
+export function getAnswerOfRoundup(roundupData: Roundup) {
+  const k = parseInt(`${roundupData.id}${roundupData.roundup}`, 10) * 100
+  const word = DATA[k % DATA_SET][0]
+  const hint = getHint(word)
+  return { word, hint }
 }

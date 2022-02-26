@@ -18,6 +18,7 @@ function openHelp() {
     <div absolute font-serif text-2xl left-0 right-0 top-0 bottom-0 z--1 tracking-2 flex>
       <div ma leading-1em>
         {{ t('name') }}
+        {{ t('endless-name') }}
       </div>
     </div>
     <div flex="~" items-center justify-between md:max-w-md ma p4>

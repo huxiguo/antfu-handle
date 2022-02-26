@@ -1,6 +1,6 @@
 import { preferZhuyin, t } from './i18n'
 import { dayNo } from './state'
-import type { InputMode, TriesMeta } from './logic'
+import type { InputMode, Roundup, TriesMeta } from './logic'
 
 export const legacyTries = useStorage<Record<number, string[]>>('handle-tries', {})
 
@@ -11,6 +11,7 @@ export const useNumberTone = useStorage('handle-number-tone', false)
 export const colorblind = useStorage('handle-colorblind', false)
 export const hardMode = useStorage('handle-hard-mode', false)
 export const accpetCollecting = useStorage('handle-accept-collecting', true)
+export const roundupData = useStorage<Roundup>('handle-roundup', {})
 
 export const meta = computed<TriesMeta>({
   get() {

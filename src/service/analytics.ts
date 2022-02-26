@@ -1,10 +1,9 @@
 import { nanoid } from 'nanoid'
 import axios from 'axios'
-import { dayNo } from './state'
-import { accpetCollecting, history, inputMode } from './storage'
-import type { TriesMeta } from './logic'
-
-const NETLIFY_FUNCTION_HOST = '/.netlify/functions'
+import { dayNo } from '../state'
+import { accpetCollecting, history, inputMode } from '../storage'
+import type { TriesMeta } from '../logic'
+import { NETLIFY_FUNCTION_HOST } from './index'
 
 // TODO:
 let _uid = localStorage.getItem('handle-uid')!
