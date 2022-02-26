@@ -36,7 +36,7 @@ export const answer = computed(() => {
       hint: getHint(params.get('word')!),
     }
   }
-  if (roundupData.value) return getAnswerOfRoundup(roundupData.value)
+  if (key && roundupData.value) return getAnswerOfRoundup(roundupData.value)
   return getAnswerOfDay(dayNo.value)
 })
 
