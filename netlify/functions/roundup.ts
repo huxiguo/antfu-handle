@@ -6,7 +6,7 @@ export const handler: Handler = async(event) => {
 
   if (action === 'create') {
     const { error, data } = await supabase.from('roundup').insert({ key })
-    if (error?.code === '23505') return { statusCode: 409, body: 'key already exists' }
+    if (error?.code === '23505') return { statusCode: 200, body: 'key already exists' }
     if (error) return { statusCode: 400, body: JSON.stringify({ error }) }
     return { statusCode: 200, body: JSON.stringify(data) }
   }

@@ -24,8 +24,14 @@ watch(daySince, (n, o) => {
 })
 
 watchEffect(() => {
-  if (!key) showHelp.value = true
-  else getRoundup({ key }).then(({ data }) => { roundupData.value = data }).catch((e) => { console.error(e) })
+  if (!key) {
+    showHelp.value = true
+  }
+  else {
+    getRoundup({ key }).then(({ data }) => {
+      roundupData.value = data
+    }).catch((e) => { console.error(e) })
+  }
 })
 
 watch([isFinished, meta], () => {
