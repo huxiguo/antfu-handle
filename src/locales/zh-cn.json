@@ -76,7 +76,7 @@
   "tone-number": "数字声调",
   "tone-symbol": "符号声调",
   "tries-rest": "剩余 {0} 次机会",
-  "update-tip": "* 新题目每日零时更新",
+  "update-tip": "* 无限模式下答完后可以立即开始下一轮",
   "view-answer": "查看答案",
   "win-count": "获胜次数",
   "win-no-hint-count": "无提示获胜次数",

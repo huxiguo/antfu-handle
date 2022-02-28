@@ -136,9 +136,17 @@ const final = computed(() => ({ py: 'uo', zy: 'ㄨㄛ', sp: 'o' }[inputMode.valu
       <span op40> & </span>
       <a op50 hover:op80 href="https://twitter.com/iiiiiiines_____" target="_blank">Inès</a>
     </div>
+    <div>
+      <span op40>endlsee mode is modified by </span>
+      <a op50 hover:op80 href="https://github.com/bqx619" target="_blank">Noah Wu</a>
+    </div>
     <a href="https://github.com/antfu/handle" target="_blank" flex="~ center gap-1" op50 hover:op80>
       <div i-carbon-logo-github />
       Source Code
+    </a>
+    <a href="https://github.com/bqx619/handle" target="_blank" flex="~ center gap-1" op50 hover:op80>
+      <div i-carbon-logo-github />
+      Endless Mode Source Code
     </a>
   </div>
 </template>
